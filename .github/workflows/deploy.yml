@@ -2,7 +2,7 @@ name: CI/CD for React App
 
 on:
   push:
-    branches: [master]  # Ensure your branch is actually "master" (or change it to "main" if needed)
+    branches: [main]  # Ensure your branch is actually "master" (or change it to "main" if needed)
   workflow_dispatch:
 
 permissions:
