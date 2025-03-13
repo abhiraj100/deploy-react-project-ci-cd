@@ -1,0 +1,34 @@
+name: CI/CD for React App
+
+on:
+  push:
+    branches: [master]  # Ensure your branch is actually "master" (or change it to "main" if needed)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest  # FIX: should be "ubuntu-latest" (not "ubuntu_latest")
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18  # FIX: Node.js 22 is not stable, use 18 or 20
+
+      - name: Install Dependencies
+        run: npm install  # FIX: "npm Install" should be "npm install" (case-sensitive)
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Deploy to Vercel
+        run: vercel --prod --yes --token=${{ secrets.VERCEL_TOKEN }}  # FIX: Do NOT expose the token directly!
